@@ -1,0 +1,31 @@
+@(posts: List[Post], postForm: Form[(String, String)])
+
+@import helper._
+
+@layout("Welcome to Play 2.0") {
+    <h1>Posts</h1>
+    
+    <div id="posts">
+      @posts.map { post =>
+          <section>
+            <h3 class="title">@post.title</h3>
+            <p class="body">@post.body</p>
+            
+            @form(routes.Application.deletePost(post.id)) {
+              <input type="submit" value="Delete">
+            }
+          </section>
+        }
+    </div>
+    
+    <h2>New Post</h2>
+    <div id="new_post">
+      @form(routes.Application.newPost) {
+        
+        @inputText(postForm("title"))
+        @textarea(postForm("body"))
+        
+        <input type="submit" value="Add Post">
+      }
+    </div>
+}
